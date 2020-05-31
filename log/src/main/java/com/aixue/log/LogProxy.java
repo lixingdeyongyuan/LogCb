@@ -2,31 +2,34 @@ package com.aixue.log;
 
 import android.text.TextUtils;
 
+import java.util.Hashtable;
+
 
 /**
  * 日志代理类
  */
 public class LogProxy implements ILogCallBack {
 
-    private static LogProxy sLogProxy = null;
+    private static Hashtable<String, LogProxy> sLogProxyHashtable = new Hashtable<>();
     public String TAG = "log";
 
     private ILogCallBack mILogCallBack = null;
 
-    public static LogProxy getInstance() {
-        if (sLogProxy == null) {
+    public static LogProxy getInstance(Class c) {
+        LogProxy logProxy = sLogProxyHashtable.get(c.getSimpleName());
+        if (logProxy == null) {
             throw new RuntimeException("you need to instance this class one time!");
         }
-        return sLogProxy;
+        return logProxy;
     }
 
 
     public LogProxy() {
         TAG = getClass().getSimpleName();
-        if (sLogProxy == null) {
-            sLogProxy = this;
-        } else {
+        if (sLogProxyHashtable.containsKey(TAG)) {
             throw new RuntimeException("Don't instance the class two time!");
+        } else {
+            sLogProxyHashtable.put(TAG, this);
         }
 
     }

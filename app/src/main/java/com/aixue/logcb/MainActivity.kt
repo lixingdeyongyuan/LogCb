@@ -13,8 +13,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
 //        LogProxy.getInstance().debug("","onCreate")
-        var test = Test()
-        Test.getInstance().setILogCallBack(object : ILogCallBack {
+            Test().setILogCallBack(object : ILogCallBack {
             override fun debug(tag: String?, msg: String) {
                 Log.d(tag, msg)
             }
@@ -27,5 +26,19 @@ class MainActivity : AppCompatActivity() {
 
         })
         Test.getInstance().debug("", "haha")
+        Test.getInstance().debug("", "haha111")
+        TestHaha().setILogCallBack(object :ILogCallBack{
+            override fun debug(tag: String?, msg: String) {
+                Log.d(tag, msg)
+            }
+
+            override fun info(tag: String?, msg: String) {
+            }
+
+            override fun error(tag: String?, msg: String) {
+            }
+
+        })
+        TestHaha.getInstance().debug("","sadasd");
     }
 }
