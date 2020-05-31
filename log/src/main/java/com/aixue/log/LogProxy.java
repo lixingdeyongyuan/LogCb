@@ -10,28 +10,12 @@ import java.util.Hashtable;
  */
 public class LogProxy implements ILogCallBack {
 
-    private static Hashtable<String, LogProxy> sLogProxyHashtable = new Hashtable<>();
     public String TAG = "log";
-
     private ILogCallBack mILogCallBack = null;
-
-    public static LogProxy getInstance(Class c) {
-        LogProxy logProxy = sLogProxyHashtable.get(c.getSimpleName());
-        if (logProxy == null) {
-            throw new RuntimeException("you need to instance this class one time!");
-        }
-        return logProxy;
-    }
 
 
     public LogProxy() {
         TAG = getClass().getSimpleName();
-        if (sLogProxyHashtable.containsKey(TAG)) {
-            throw new RuntimeException("Don't instance the class two time!");
-        } else {
-            sLogProxyHashtable.put(TAG, this);
-        }
-
     }
 
     public void setILogCallBack(ILogCallBack iLogCallBack, String... tag) {
